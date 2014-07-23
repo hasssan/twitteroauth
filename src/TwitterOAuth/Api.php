@@ -42,6 +42,9 @@ class Api {
   /* Give access to setting the headers */
   public $http_headers = array('Expect:');
 
+    /** @var  string Login Page Language Choice */
+    protected $lang;
+
 
 
   /**
@@ -107,9 +110,9 @@ class Api {
       $token = $token['oauth_token'];
     }
     if (empty($sign_in_with_twitter)) {
-      return $this->authorizeURL() . "?oauth_token={$token}";
+      return $this->authorizeURL() . "?oauth_token={$token}" . $this->getLang();
     } else {
-       return $this->authenticateURL() . "?oauth_token={$token}";
+       return $this->authenticateURL() . "?oauth_token={$token}" . $this->getLang();
     }
   }
 
@@ -294,4 +297,24 @@ class Api {
     }
     return strlen($header);
   }
+
+    /**
+     * Setter for Language
+     *
+     * @param $lang string
+     */
+    public function setLang($lang)
+    {
+        $this->lang = '&lang=' . $lang;
+    }
+
+    /**
+     * Getter for Language
+     *
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
 }
